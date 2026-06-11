@@ -1,3 +1,9 @@
+---
+title: About
+icon: fas fa-info-circle
+order: 99
+---
+
 # About Me
 
 I'm Umarani Tejomurtula.
