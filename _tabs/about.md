@@ -4,8 +4,6 @@ icon: fas fa-info-circle
 order: 99
 ---
 
-# About Me
-
 I'm Umarani Tejomurtula.
 
 I currently work with engineering organizations to accelerate software delivery through AI-powered developer tools and modern engineering platforms.
