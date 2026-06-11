@@ -4,8 +4,6 @@ icon: fas fa-rocket
 order: 1
 ---
 
-# AI Adoption, GitHub Copilot & Engineering Leadership
-
 Hi, I'm Umarani Tejomurtula.
 
 I help engineering organizations adopt AI-powered developer productivity solutions, including GitHub Copilot and the GitHub platform.
