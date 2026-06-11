@@ -1,6 +1,7 @@
 ---
 title: "GitHub Copilot Customization That Actually Sticks: A Field Guide"
 date: 2026-06-11 09:00:00 +0530
+author: Umarani Tejomurtula
 categories: [AI Engineering, GitHub Copilot]
 tags: [github-copilot, ai, developer-productivity, custom-instructions, prompt-files, agents]     # TAG names should always be lowercase
 pin: false
