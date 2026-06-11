@@ -1,10 +1,3 @@
----
-
-title: Start Here
-icon: fas fa-rocket
-order: 1
---------
-
 # AI Adoption, GitHub Copilot & Engineering Leadership
 
 Hi, I'm Umarani Tejomurtula.
