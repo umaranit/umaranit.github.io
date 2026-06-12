@@ -3,6 +3,10 @@
 - type: github
   icon: "fab fa-github"
 
+- type: linkedin
+  icon: "fab fa-linkedin"
+  url: "https://www.linkedin.com/in/umarani-tejomurtula/"
+
 
 # Uncomment and complete the url below to enable more contact options
 #
