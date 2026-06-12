@@ -1,14 +1,11 @@
 ---
 title: "From Prompt Files to Skills: Building a Reusable Copilot Library for Your Org"
-date: 2026-06-14 09:00:00 +0530
+date: 2026-06-12 09:00:00 +0530
 categories: [AI Engineering, GitHub Copilot]
 tags: [github-copilot, ai, developer-productivity, prompt-files, skills, platform-engineering]     # TAG names should always be lowercase
 pin: false
 math: false
 mermaid: true
-image:
-  path: /assets/img/posts/copilot-library-cover.png
-  alt: A shared library of Copilot prompt files, agents, and skills across an org
 description: One team writes a great prompt file. Three other teams reinvent it badly. Here's how to turn scattered Copilot customizations into a versioned, governed, reusable library the whole org pulls from.
 ---
 
