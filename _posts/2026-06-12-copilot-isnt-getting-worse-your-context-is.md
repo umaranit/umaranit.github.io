@@ -1,14 +1,11 @@
 ---
 title: "Copilot Isn't Getting Worse — Your Context Is"
-date: 2026-06-13 09:00:00 +0530
+date: 2026-06-12 09:00:00 +0530
 categories: [AI Engineering, GitHub Copilot]
 tags: [github-copilot, ai, developer-productivity, context-engineering, prompting, ai-pair-programming]     # TAG names should always be lowercase
 pin: false
 math: false
 mermaid: true
-image:
-  path: /assets/img/posts/context-hygiene-cover.png
-  alt: Context hygiene for AI coding assistants
 description: Your AI assistant feels dumber lately — forgetting decisions, ignoring your style, hallucinating libraries. In most cases the model is fine. The context feeding it isn't. Here's how to diagnose and fix it.
 ---
 
