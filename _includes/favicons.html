@@ -1,0 +1,10 @@
+<!--
+  Favicon override.
+  Only references the local SVG so the Chirpy gem's bundled ladybug
+  (favicon.ico / favicon-96x96.png / apple-touch-icon.png) never loads.
+-->
+
+{% capture favicon_path %}{{ '/assets/img/favicons' | relative_url }}{% endcapture %}
+
+<link rel="icon" type="image/svg+xml" href="{{ favicon_path }}/favicon.svg">
+<link rel="shortcut icon" type="image/svg+xml" href="{{ favicon_path }}/favicon.svg">
