@@ -36,6 +36,7 @@ Notice none of these are "the model regressed." They're all about *what surround
 
 Every request to an AI assistant has a finite **context window** — a token budget. Everything competes for that space: your system/custom instructions, the chat history, attached files, retrieved snippets, tool outputs, and finally your actual question.
 
+{% raw %}
 ```mermaid
 flowchart LR
     subgraph BUDGET["Your context window (finite)"]
@@ -52,6 +53,7 @@ flowchart LR
     style Q fill:#2563eb,color:#fff
     style O fill:#16a34a,color:#fff
 ```
+{% endraw %}
 
 The trap is intuitive but wrong: *more context feels safer*. In reality, every irrelevant token spends budget and dilutes the model's attention on what matters. A focused half-screen of context beats a sprawling dump every single time — the same way a clear 20-line function beats a 600-line one.
 
@@ -97,6 +99,7 @@ Attaching the whole repo, or 30 files "to be safe," feels thorough. It does the 
 
 Before you conclude the model is broken, run this:
 
+{% raw %}
 ```mermaid
 flowchart TD
     A["Assistant is drifting / feels worse"] --> B{"Instructions file<br/>longer than one screen?"}
@@ -112,6 +115,7 @@ flowchart TD
     style A fill:#dc2626,color:#fff
     style F fill:#2563eb,color:#fff
 ```
+{% endraw %}
 
 Each branch you fix removes a likely cause. Most of the time you never reach the bottom — one of the first three boxes was the culprit.
 
