@@ -19,7 +19,7 @@ GitHub publishes a handy [customization cheat sheet](https://docs.github.com/en/
 
 I'm going to assume you've skimmed the cheat sheet. Instead of repeating the table, I'll answer the three questions it doesn't: **which one do I need, why, and what goes wrong.**
 
-## The mental model: four layers, four jobs
+## The mental model: five layers, five jobs
 
 Copilot customization isn't one feature — it's a stack. Each layer answers a different question.
 
@@ -28,11 +28,13 @@ flowchart TD
     A["Repository custom instructions<br/>(copilot-instructions.md)"] --> B["Path-specific instructions<br/>(*.instructions.md)"]
     B --> C["Prompt files<br/>(*.prompt.md)"]
     C --> D["Custom agents / chat modes<br/>(*.agent.md, *.chatmode.md)"]
+    D --> E["Skills<br/>(SKILL.md + resources)"]
 
     A -.->|"How should you ALWAYS behave here?"| A
     B -.->|"How to behave for THESE files?"| B
     C -.->|"Do THIS repeatable task"| C
     D -.->|"Be THIS persona with THESE tools"| D
+    E -.->|"Reach for THIS knowledge when relevant"| E
 ```
 
 Read that diagram as a sentence:
@@ -41,6 +43,7 @@ Read that diagram as a sentence:
 - **Path-specific instructions** = exceptions and specializations scoped to a folder or file glob.
 - **Prompt files** = saved, reusable *requests* you invoke on demand.
 - **Custom agents** = a personality + a restricted toolset for a specific kind of work.
+- **Skills** = bundled domain knowledge the AI pulls in *by itself* when a task matches.
 
 The single most common mistake is cramming everything into layer one. Let's go layer by layer.
 
@@ -127,6 +130,40 @@ Two examples that show the range:
 
 The value isn't the friendly name. It's that you've **constrained what the AI can do** to match the job. A review agent that can't delete files is safer than a general agent you're hoping behaves.
 
+## Layer 5 — Skills: knowledge the AI reaches for itself
+
+**File:** `SKILL.md` (a named folder containing the file, plus any scripts, templates, or reference docs it needs)
+
+This is the newest layer and the one causing the most "wait, how is this different from a prompt file?" confusion. Here's the clean distinction:
+
+- A **prompt file** is invoked by *you* — you pick it from a list and run it.
+- A **skill** is invoked by *Copilot* — the model reads each skill's `description`, decides a task matches, and loads the full instructions on its own.
+
+That trigger-by-description mechanic is the whole point. A skill's frontmatter is essentially a *routing advertisement*: it tells Copilot "call me when the user is doing X."
+
+```markdown
+---
+name: release-notes
+description: Generate customer-facing release notes from merged PRs since the last tag. Use when the user asks to draft release notes, a changelog, or "what shipped this sprint."
+---
+When producing release notes:
+1. Run `scripts/collect-prs.sh` (included in this skill) to list merged PRs since the last git tag.
+2. Group entries under Added / Changed / Fixed / Security.
+3. Rewrite PR titles into user-facing language — no internal ticket IDs.
+4. Output Markdown matching `templates/release-notes.md`.
+```
+
+The other thing prompt files and instructions *can't* do: a skill is a **folder**, so it can ship the scripts and templates it depends on right alongside the instructions. The model can run `scripts/collect-prs.sh` and read `templates/release-notes.md` because they live inside the skill.
+
+**When to reach for this:**
+
+- The knowledge is **occasionally relevant**, not always-on. Putting it in repo instructions would tax every request; a skill stays dormant until it's needed.
+- You want Copilot to **decide** when to apply it, instead of relying on a human to remember to invoke a prompt file.
+- The capability needs **bundled assets** (a helper script, a strict output template, a reference spec).
+
+> Rule of thumb: if a human has to remember to trigger it, it's a **prompt file**. If you want the AI to recognize the moment and pull it in, it's a **skill**. The quality of the `description` is what makes a skill fire at the right time — write it like a trigger, not a title.
+{: .prompt-tip }
+
 ## A decision table you'll actually use
 
 | If you're thinking... | Reach for... |
@@ -137,25 +174,31 @@ The value isn't the friendly name. It's that you've **constrained what the AI ca
 | "I want a safe, focused mode for one kind of work." | Custom agent |
 | "I want it to stop suggesting class components." | Repository instructions (one line) |
 | "Generate our standard PR description." | Prompt file |
+| "There's niche know-how the AI should pull in *automatically* when a task fits." | Skill |
+| "It needs a helper script or strict template bundled with the instructions." | Skill |
+| "Skill or prompt file?" — *I* trigger it → prompt file; *the AI* should → skill | Whichever matches who pulls the trigger |
 
-## The four mistakes that waste the effort
+## The five mistakes that waste the effort
 
 1. **Everything in one file.** A 500-line `copilot-instructions.md` dilutes every rule. Split by scope into layer-2 files.
 2. **Writing essays, not rules.** "We generally prefer, where appropriate, to consider using..." gets ignored. Write imperatives: "Use X. Never Y."
 3. **Instructions that contradict each other.** When the repo file says "prefer async/await" and a path file says "use `.then()` chains," you get coin-flip behavior. Audit for conflicts.
 4. **No review process.** These files are code. Unreviewed, they rot — pointing at deprecated libraries and dead conventions. Put them in PRs.
+5. **Vague skill descriptions.** A skill only fires if its `description` matches the task. "Helps with docs" never triggers; "Use when drafting release notes or a changelog from merged PRs" does. The description is the trigger, not a label.
 
 ## Start here (a 30-minute plan)
 
-You don't need all four layers on day one. Here's the order of return-on-effort:
+You don't need all five layers on day one. Here's the order of return-on-effort:
 
 1. **Today:** write a 20-line `copilot-instructions.md` — stack, top 5 rules, vocabulary. Ship it.
 2. **This week:** notice the one chore your team does most. Make it a prompt file.
 3. **When it hurts:** the first time you write a folder-specific exception, pull it into a path-specific file.
 4. **Later:** build a custom agent only when you have a *workflow* (not a task) that needs its own guardrails.
+5. **When you have reusable know-how:** package it as a skill — so Copilot pulls it in automatically the next time the moment arrives, no one needing to remember.
 
 Customization compounds. A lean constitution plus two good prompt files will outperform a sprawling instructions document every single time — because the AI, like a new teammate, follows clear rules better than long ones.
 
 ---
 
 *Got a Copilot customization pattern that's worked well for your team? I'd love to hear it — drop a comment below.*
+
