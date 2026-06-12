@@ -6,9 +6,6 @@ tags: [github-copilot, security, content-exclusion, governance, best-practices] 
 pin: false
 math: false
 mermaid: true
-image:
-  path: /assets/img/posts/copilot-content-exclusion-cover.png
-  alt: GitHub Copilot content exclusion boundaries
 description: Why GitHub Copilot content exclusion is a business enabler — how it accelerates adoption, satisfies compliance, sharpens suggestions, and unlocks ROI by letting you say "yes" to Copilot with confidence.
 ---
 
