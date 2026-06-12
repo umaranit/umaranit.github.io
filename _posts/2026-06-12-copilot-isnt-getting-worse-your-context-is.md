@@ -1,5 +1,5 @@
 ---
-title: "Copilot Isn't Getting Worse — Your Context Is"
+title: "Stop Blaming the Model: Your Context Needs a Cleanup"
 date: 2026-06-12 09:00:00 +0530
 categories: [AI Engineering, GitHub Copilot]
 tags: [github-copilot, ai, developer-productivity, context-engineering, prompting, ai-pair-programming]     # TAG names should always be lowercase

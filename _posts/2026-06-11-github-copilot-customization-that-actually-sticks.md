@@ -6,9 +6,6 @@ tags: [github-copilot, ai, developer-productivity, custom-instructions, prompt-f
 pin: false
 math: false
 mermaid: true
-image:
-  path: /assets/img/posts/copilot-customization-cover.png
-  alt: GitHub Copilot customization layers
 description: A practical guide to GitHub Copilot's customization options — what each one is for, when to reach for it, and the mistakes that quietly waste your effort.
 ---
 
