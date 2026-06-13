@@ -1,6 +1,6 @@
 ---
 title: "Trust but Verify: A Testing Strategy for AI-Written Code"
-date: 2026-06-13 09:00:00 +0530
+date: 2026-06-13 00:01:00 +0530
 categories: [AI Engineering, GitHub Copilot]
 tags: [github-copilot, ai, testing, code-quality, developer-productivity, ai-pair-programming]     # TAG names should always be lowercase
 pin: false
