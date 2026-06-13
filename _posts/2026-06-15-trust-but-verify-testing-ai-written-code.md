@@ -131,4 +131,4 @@ Trust the AI to do the work. Verify like it didn't.
 
 ---
 
-*This pairs naturally with keeping your context clean — see [Copilot Isn't Getting Worse — Your Context Is]({% post_url 2026-06-13-copilot-isnt-getting-worse-your-context-is %}). Got a verification habit that's saved you from an AI-written bug? Drop it in the comments.*
+*This pairs naturally with keeping your context clean — see [Copilot Isn't Getting Worse — Your Context Is]({% post_url 2026-06-12-copilot-isnt-getting-worse-your-context-is %}). Got a verification habit that's saved you from an AI-written bug? Drop it in the comments.*
