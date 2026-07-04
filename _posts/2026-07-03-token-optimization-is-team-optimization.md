@@ -6,6 +6,9 @@ tags: [github-copilot, ai, token-optimization, software-delivery, product-manage
 pin: false
 math: true
 mermaid: true
+image:
+  path: /assets/img/posts/token-optimization-team-cover.png
+  alt: Token optimization across product, architecture, development, testing, and operations
 description: In the AI-assisted development era, token waste is rarely just a developer problem. Vague requirements, unclear architecture, weak test scenarios, and missing operational context all turn into expensive AI rework. Token optimization is really delivery discipline.
 ---
 
@@ -44,41 +47,14 @@ Every missing edge case becomes a debugging loop.
 Every unknown pattern becomes a repository exploration loop.  
 Every late review comment becomes a refactoring loop.
 
-The bill shows up as tokens, but the root cause is usually ambiguity.
+This isn't just a minor line item on a bill. It is a **Rework Multiplier**.
 
-```mermaid
-flowchart LR
-    A["Ambiguous requirement"] --> B["AI explores more context"]
-    B --> C["Wrong or broad implementation"]
-    C --> D["Review feedback"]
-    D --> E["Rework"]
-    E --> F["More tokens consumed"]
+| Input Quality | Inference Turns | Token Multiplier | Human Time Cost |
+|---|---|---|---|
+| **High Clarity** | 1-2 | 1.0x | 0 min |
+| **Vague/Ambiguous** | 5-8+ | 4.0x - 10.0x | 45-60 min debugging |
 
-    style A fill:#ffebee,stroke:#c62828
-    style F fill:#fff3e0,stroke:#e65100
-```
-
-A useful mental model:
-
-$$
-\text{Tokens} \approx \text{Context Discovery} + \text{Implementation} + \text{Rework loops}
-$$
-
-Ambiguity does not sit neatly in one term. It acts as a *multiplier* on all of them: a vague story makes the assistant read more context, implement more speculatively, and loop through more rework.
-
-The difference is not hypothetical. Take a single "add invoice approval notification" story:
-
-| Cost driver | Vague story | Token-ready brief |
-|---|---:|---:|
-| Context discovery | ~40K (agent explores unknown patterns) | ~10K (points at the right files) |
-| Implementation | ~15K (broad, speculative) | ~10K (scoped change) |
-| Rework loops | ~65K (3–4 correction rounds) | ~15K (1 round) |
-| **Total** | **~120K** | **~35K** |
-
-Same feature. Same model. Roughly **3–4× the tokens** — and the only variable that changed was how clearly the work was specified.
-
-> Figures are illustrative, but the shape is real: rework loops, not first-pass generation, dominate the bill — and ambiguity is what feeds them.
-{: .prompt-tip }
+The bill shows up as tokens, but the real cost is the 4x increase in delivery time. Ambiguity is rarely the coder's doing — it arrives from upstream: a fuzzy story, an undecided design, a missing rule. The person typing the prompt just pays for it.
 
 ## The AI did not remove roles. It raised the bar for them.
 
@@ -91,18 +67,24 @@ Sometimes it will. Often it will not. And even when it does, it may spend a lot 
 AI is excellent at execution.  
 It is not a replacement for intent.
 
+But here is the shift most teams miss: **AI is not only for the coding step.** 
+
+Every persona can — and should — point it at *their own* work to accelerate the "Token-Ready Brief." The Architect doesn't just write a design; they use AI to attack it: *"Where is this underspecified? Where could it be built three different ways?"* The PO doesn't just guess acceptance criteria; they ask AI, *"What would you have to assume to build this?"*
+
+The goal is to surface the gaps, contradictions, and unstated assumptions before they flow downstream. The coder is simply the last person to use AI, not the first.
+
 The better each persona does their job, the better the AI performs its job.
 
 ```mermaid
-flowchart LR
-    PO["Product Owner<br/>Clear intent"] --> BA["Business Analyst<br/>Business rules"]
-    BA --> UX["UX Designer<br/>Interaction details"]
-    UX --> ARCH["Architect<br/>Solution boundaries"]
-    ARCH --> DEV["Developer<br/>Code context"]
-    DEV --> QA["QA<br/>Verification scenarios"]
-    QA --> SEC["Security<br/>Risk constraints"]
-    SEC --> OPS["DevOps<br/>Run and deploy path"]
-    OPS --> AI["AI Assistant<br/>Focused execution"]
+flowchart TD
+    PO["Product Owner: Clear intent"] --> BA["Business Analyst: Business rules"]
+    BA --> UX["UX Designer: Interaction details"]
+    UX --> ARCH["Architect: Solution boundaries"]
+    ARCH --> DEV["Developer: Code context"]
+    DEV --> QA["QA: Verification scenarios"]
+    QA --> SEC["Security: Risk constraints"]
+    SEC --> OPS["DevOps: Run and deploy path"]
+    OPS --> AI["AI Assistant: Focused execution"]
 
     style AI fill:#e8f5e9,stroke:#2e7d32
 ```
@@ -151,6 +133,8 @@ A strong Product Owner should provide:
 
 The more precise the story, the fewer turns the team spends asking, correcting, and reworking.
 
+And you don't have to catch the gaps alone. Paste the draft story into an AI and ask *what would you have to assume to build this?* — its assumptions are your missing acceptance criteria, surfaced before they ever reach a developer.
+
 ## Business Analysts: turn hidden rules into executable clarity
 
 Many token-heavy AI sessions happen because a business rule was never written down. "Notify users when invoices are approved" hides real logic that the assistant will otherwise have to *guess* — and then get corrected on:
@@ -164,6 +148,8 @@ Many token-heavy AI sessions happen because a business rule was never written do
 | Rejected | Approved | No |
 
 That table is gold. It converts fuzzy domain knowledge into something the AI can implement and test in one pass, instead of discovering the rules through failed rework loops.
+
+Let AI help you build it: ask it to list every state transition your rules *don't* yet cover. The empty cells it finds are exactly where rework hides.
 
 ## Architects: reduce solution uncertainty
 
@@ -205,6 +191,8 @@ Good architecture guidance narrows the search space.
 
 And narrowing the search space is one of the best ways to reduce token usage.
 
+Before you circulate the design, have AI attack it: *where is this underspecified? Where could it be built three different ways?* Every ambiguity you resolve now is a branch of exploration the team never pays to walk down later.
+
 ## Developers: become context curators
 
 In AI-assisted development, developers do not stop being developers — they become the people who know *which* context matters. Compare:
@@ -232,11 +220,19 @@ Constraints:
 
 The second prompt hands the assistant boundaries instead of a search problem. The developer's high-value work shifts from typing code to curating context: naming the right files, pointing at the pattern to copy, stating constraints, and reviewing small diffs. Less typist, more implementation guide — and a much cheaper one.
 
-## QA: define what correctness means
+A quick self-check: ask the assistant which files it thinks it needs *before* it edits. If the list surprises you, your context was incomplete — fix that, not the output.
 
-If the AI writes both the implementation and the tests from the same vague story, it may simply encode the same misunderstanding twice.
+## Readiness roles: prove the brief before code
 
-That is how teams get green tests and wrong behavior.
+Once the story, rules, architecture, and code context are clear, the question changes.
+
+It is no longer just: **can AI build this?**
+
+It becomes: **will the result be correct, secure, usable, and runnable?**
+
+That is where QA, Security, DevOps, and UX protect the token budget. They are not cleanup crews at the end of the sprint. They are readiness gates before the agent starts building.
+
+QA defines what correctness means. If the AI writes both the implementation and the tests from the same vague story, it may simply encode the same misunderstanding twice. That is how teams get green tests and wrong behavior.
 
 Weak QA input:
 
@@ -256,75 +252,32 @@ Test scenarios:
 6. Missing approver email skips notification and logs the reason.
 ```
 
-QA reduces token waste by making verification explicit.
+QA can use AI here too — not to blindly invent tests, but to challenge the test plan: *what scenarios am I missing? what edge case would break this?* The human still decides what matters. The AI helps expose the gaps earlier.
 
-Instead of asking the AI to invent coverage, QA gives the AI a target.
+The same idea applies to the other readiness roles. We move them from "cleanup" to "constraints":
 
-Good QA input includes:
+### Security: define the vault, not the patch
+**Weak Input:** "Make it secure."  
+**Token-Efficient Input:** "Only users with the `FinanceApprover` role can trigger this. Do not log the `InvoiceBody`. Sanitize all inputs against SQL injection using the existing `SecurityMiddleware`."
 
-- happy paths
-- negative paths
-- boundary cases
-- regression scenarios
-- failure behavior
-- data combinations
-- business-critical risks
+### DevOps: define the path, not the search
+**Weak Input:** "Deploy this."  
+**Token-Efficient Input:** "Deploy as a Dockerized Node.js app to Azure App Service using the `finance-prod-spec` GitHub Action. Use Vault for secrets; do not invent environment variables."
 
-Tests are not just quality gates anymore. They are token-control gates.
+### UX: define the state, not the look
+**Weak Input:** "Add a success message."  
+**Token-Efficient Input:** "Show a `ToastNotification` on success. If email fails, show a `WarningBanner` with the message 'Invoice approved, but notification failed'. Use the system primary purple for the button state."
 
-A precise test plan prevents rework.
+This is the point of the back half of the SDLC: not more documentation for its own sake, but fewer late surprises. Every readiness gap left unstated becomes a future prompt, a future correction, and a future token bill.
 
-## Security, DevOps, and UX: the same discipline, applied late is expensive
+## The token-ready story brief
 
-The remaining roles follow the identical pattern — unstated intent becomes an expensive correction loop after the code already exists. The fix is the same too: move the constraint *into the brief*, not the review.
+None of this requires a heavier process. It requires one shared artifact that every role contributes to *before* a single token is spent on code — a short, sharp brief, not a 40-page document.
 
-| Role | What ambiguity costs | The one-paragraph fix |
-|---|---|---|
-| **Security** | A functionally correct feature that logs sensitive data or skips an authorization check triggers a full re-analyze → re-implement → re-test → re-review loop. | State the rules up front: "Only `InvoiceApprover` can approve. Never log the full payload — invoice ID only. No new secrets. Use existing auth middleware." |
-| **DevOps / Platform** | The agent guesses the test command, invents undocumented env vars, and produces deploy steps that don't match the pipeline — burning tokens on trial and error. | Document the run path: `npm test -- invoice`, the required env vars, the `invoiceApprovalNotification` flag, and "no migration required." |
-| **UX** | "Show a notification" leaves the assistant to invent copy, timing, states, and accessibility behavior — then get corrected on each. | Specify the states: success vs. failure toast text, 5s duration, the existing `Toast` component, and "must be announced to screen readers." |
+> **Note:** This brief is not "Waterfall 2.0." It is a one-page contract of intent. If it takes more than 15 minutes to assemble (with AI assistance), your story is likely too big.
+{: .prompt-info }
 
-Security findings, broken build commands, and reinvented UI copy are all the same bug wearing different hats: a decision that lived in someone's head instead of the brief. An agent guessing your deploy process is just an expensive intern with a terminal.
-
-## The Token-Ready Story Brief
-
-The practical solution is not a 40-page process document.
-
-It is a short, precise story brief that makes the work AI-ready.
-
-```text
-Story title:
-
-Business goal:
-
-User persona:
-
-Acceptance criteria:
-
-Business rules:
-
-Out of scope:
-
-Relevant existing feature or pattern:
-
-Suggested architecture:
-
-Likely files or components:
-
-Test scenarios:
-
-Security constraints:
-
-Operational constraints:
-
-Definition of done:
-```
-
-This brief does not need to be long. It needs to be sharp.
-
-A one-page brief can save many thousands of tokens downstream.
-
-## Example: before and after
+Here is the same story written two ways.
 
 ### Before
 
@@ -406,7 +359,7 @@ Definition of done:
 
 This version lets the AI execute. The first version makes the AI investigate.
 
-That is the difference between productive token usage and token waste.
+That is the difference between productive token usage and token waste. The brief is not extra paperwork — it is the place where every role's contribution lands before it becomes an expensive question mid-build.
 
 ## A role-by-role token checklist
 
