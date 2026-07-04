@@ -6,9 +6,6 @@ tags: [github-copilot, ai, token-optimization, software-delivery, product-manage
 pin: false
 math: true
 mermaid: true
-image:
-  path: /assets/img/posts/token-optimization-team-cover.png
-  alt: Token optimization across product, architecture, development, testing, and operations
 description: In the AI-assisted development era, token waste is rarely just a developer problem. Vague requirements, unclear architecture, weak test scenarios, and missing operational context all turn into expensive AI rework. Token optimization is really delivery discipline.
 ---
 
