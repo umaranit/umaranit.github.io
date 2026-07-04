@@ -270,27 +270,23 @@ Test scenarios:
 
 QA can use AI here too — not to blindly invent tests, but to challenge the test plan: *what scenarios am I missing? what edge case would break this?* The human still decides what matters. The AI helps expose the gaps earlier.
 
-The same idea applies to the other readiness roles. We move them from "cleanup" to "constraints":
+### The readiness roles
 
-### Security: define the vault, not the patch
-**Weak Input:** "Make it secure."  
-**Token-Efficient Input:** "Only users with the `FinanceApprover` role can trigger this. Do not log the `InvoiceBody`. Sanitize all inputs against SQL injection using the existing `SecurityMiddleware`."
+The same idea applies to Security, DevOps, and UX. Their job is not to arrive late as after-the-fact reviewers. It is to turn vague requests into build constraints before the agent starts:
 
-### DevOps: define the path, not the search
-**Weak Input:** "Deploy this."  
-**Token-Efficient Input:** "Deploy as a Dockerized Node.js app to Azure App Service using the `finance-prod-spec` GitHub Action. Use Vault for secrets; do not invent environment variables."
-
-### UX: define the state, not the look
-**Weak Input:** "Add a success message."  
-**Token-Efficient Input:** "Show a `ToastNotification` on success. If email fails, show a `WarningBanner` with the message 'Invoice approved, but notification failed'. Use the system primary purple for the button state."
+*   **Security defines the vault, not the patch:** instead of "make it secure," specify that only users with the `FinanceApprover` role can trigger the action, sensitive fields such as `InvoiceBody` must not be logged, and existing security middleware must be reused.
+*   **DevOps defines the path, not the search:** instead of "deploy this," specify the target platform, pipeline, secret source, and configuration rules — for example, Dockerized Node.js on Azure App Service through the `finance-prod-spec` GitHub Action, with secrets from Vault and no invented environment variables.
+*   **UX defines the state, not the look:** instead of "add a success message," specify the component, copy, accessibility expectation, and failure state — for example, a `ToastNotification` on success and a `WarningBanner` when notification fails.
 
 This is the point of the back half of the SDLC: not more documentation for its own sake, but fewer late surprises. Every readiness gap left unstated becomes a future prompt, a future correction, and a future token bill.
 
 ## The token-ready story brief: A team-wide readiness check
 
-The "Brief" is a team agreement. Before the developer starts coding, the **Product Owner, Architect, and Developer** must spend a few minutes aligning on the boundaries. 
+The "Brief" is a team agreement. Before the developer starts coding, the **Product Owner, Architect, and Developer** must spend a few minutes aligning on the boundaries.
 
-> **The 15-Minute Clarity Rule:** If your team cannot agree on the Acceptance Criteria and Architecture for a story in under 15 minutes, **stop the work.** This is a signal that the story is too large and will waste significant tokens. The team should split it into two smaller, clearer tasks immediately.
+### The 15-Minute Clarity Rule
+
+> If your team cannot agree on the acceptance criteria and architecture for a story in under 15 minutes, **stop the work.** That is not a meeting failure. It is a signal that the story is too large, too vague, or too risky for efficient AI-assisted implementation. Split it into two smaller, clearer tasks before the token meter starts running.
 {: .prompt-info }
 
 Here is how a single story transforms from a "guessing game" into an "execution plan."
