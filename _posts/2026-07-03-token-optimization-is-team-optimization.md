@@ -267,14 +267,14 @@ The same idea applies to the other readiness roles. We move them from "cleanup" 
 
 This is the point of the back half of the SDLC: not more documentation for its own sake, but fewer late surprises. Every readiness gap left unstated becomes a future prompt, a future correction, and a future token bill.
 
-## The token-ready story brief
+## The token-ready story brief: A team-wide readiness check
 
-None of this requires a heavier process. It requires one shared artifact that every role contributes to *before* a single token is spent on code — a short, sharp brief, not a 40-page document.
+The "Brief" is where all roles land their context before the AI starts coding. It is not just for Product Owners; it is for the **whole team** to ensure the task is ready for AI execution.
 
-> **Note:** This brief is not "Waterfall 2.0." It is a one-page contract of intent. If it takes more than 15 minutes to assemble (with AI assistance), your story is likely too big.
+> **The 15-Minute Clarity Rule:** This brief isn't a heavy document; it’s a quick alignment check. If your team (PO, Architect, and Dev) cannot assemble these few bullet points in under 15 minutes, it is a signal that your story is too complex. **Stop spending tokens.** Split the story into two smaller, clearer tasks instead.
 {: .prompt-info }
 
-Here is the same story written two ways.
+Here is how a single story transforms from a "guessing game" into an "execution plan."
 
 ### Before
 
