@@ -51,7 +51,15 @@ This isn't just a minor line item on a bill. It is a **Rework Multiplier**.
 | **High Clarity** | 1-2 | 1.0x | 0 min |
 | **Vague/Ambiguous** | 5-8+ | 4.0x - 10.0x | 45-60 min debugging |
 
-The bill shows up as tokens, but the real cost is the 4x increase in delivery time. Ambiguity is rarely the coder's doing — it arrives from upstream: a fuzzy story, an undecided design, a missing rule. The person typing the prompt just pays for it.
+### Understanding the cost
+*   **Inference Turns:** How many times the developer has to "talk back" to the AI to correct its mistakes.
+*   **Token Multiplier:** The cumulative cost. Chat history grows with every turn; by turn 8, you are paying for the 7 previous failures every time you hit Enter.
+*   **Human Time Cost:** The time a developer spends "babysitting" a confused AI instead of shipping code.
+
+The bill shows up as tokens, but the real cost is the 4x increase in delivery time. 
+
+**This is the hidden tax of ambiguity:**  
+The **Product Owner** provides a fuzzy story, the **Architect** leaves a design undecided, and the **Developer** is left to "pay the bill" by spending hours—and thousands of tokens—trying to guess the intent. We are telling **Team Leads** that token optimization isn't a coding trick; it's a requirement for the people writing the stories.
 
 ## The AI did not remove roles. It raised the bar for them.
 
@@ -219,6 +227,17 @@ The second prompt hands the assistant boundaries instead of a search problem. Th
 
 A quick self-check: ask the assistant which files it thinks it needs *before* it edits. If the list surprises you, your context was incomplete — fix that, not the output.
 
+### The Developer's "Final Mile"
+
+Even with a perfect brief, the developer is the final gatekeeper of the token budget. Upstream clarity provides the map, but you still have to drive efficiently. Once the ambiguity is rectified, you must apply precision habits:
+
+| Technical Habit | Token Impact |
+|---|---|
+| **Right model for the task** | Use smaller, faster models for boilerplate and refactoring. Save large reasoning models for complex logic and structural changes. |
+| **Aggressive context pruning** | Don't just "Add All Files." Use only the specific files identified in your brief to minimize noise and distractions. |
+| **Small, stable increments** | Ask for one clear change at once. Large, multi-file requests lead to more errors and expensive rework turns. |
+| **Clean the slate** | Clear your chat history between unrelated tasks. Don't force the AI to keep paying for old context it no longer needs. |
+
 ## Readiness roles: prove the brief before code
 
 Once the story, rules, architecture, and code context are clear, the question changes.
@@ -269,9 +288,9 @@ This is the point of the back half of the SDLC: not more documentation for its o
 
 ## The token-ready story brief: A team-wide readiness check
 
-The "Brief" is where all roles land their context before the AI starts coding. It is not just for Product Owners; it is for the **whole team** to ensure the task is ready for AI execution.
+The "Brief" is a team agreement. Before the developer starts coding, the **Product Owner, Architect, and Developer** must spend a few minutes aligning on the boundaries. 
 
-> **The 15-Minute Clarity Rule:** This brief isn't a heavy document; it’s a quick alignment check. If your team (PO, Architect, and Dev) cannot assemble these few bullet points in under 15 minutes, it is a signal that your story is too complex. **Stop spending tokens.** Split the story into two smaller, clearer tasks instead.
+> **The 15-Minute Clarity Rule:** If your team cannot agree on the Acceptance Criteria and Architecture for a story in under 15 minutes, **stop the work.** This is a signal that the story is too large and will waste significant tokens. The team should split it into two smaller, clearer tasks immediately.
 {: .prompt-info }
 
 Here is how a single story transforms from a "guessing game" into an "execution plan."
